@@ -15,6 +15,7 @@ function renderList(actionForButton){
 	for(let i = 0; i<currentMovieStack.length; i++){
 		let movieCard = document.createElement('div');
 		movieCard.classList.add("movie-card");
+		// console.log(currentMovieStack[i]);
 
 		movieCard.innerHTML = `
 		<img src="${'https://image.tmdb.org/t/p/w500' + currentMovieStack[i].poster_path}" alt="${currentMovieStack[i].title}" class="movie-poster">
@@ -79,14 +80,14 @@ function favourite(element){
 	let id = element.dataset.id;
 	for(let i = 0; i< currentMovieStack.length; i++){
 		if(currentMovieStack[i].id == id){
-			let favouriteMoviesAkash = JSON.parse(localStorage.getItem("favouriteMoviesAkash"));
+			let favouriteMoviePriyanka = JSON.parse(localStorage.getItem("favouriteMoviePriyanka"));
 			
-			if(favouriteMoviesAkash == null){
-				favouriteMoviesAkash = [];
+			if(favouriteMoviePriyanka == null){
+				favouriteMoviePriyanka = [];
 			}
 
-			favouriteMoviesAkash.unshift(currentMovieStack[i]);
-			localStorage.setItem("favouriteMoviesAkash", JSON.stringify(favouriteMoviesAkash));
+			favouriteMoviePriyanka.unshift(currentMovieStack[i]);
+			localStorage.setItem("favouriteMoviePriyanka", JSON.stringify(favouriteMoviePriyanka));
 
 			showAlert(currentMovieStack[i].title + " added to favourite")
 			return;
@@ -95,28 +96,28 @@ function favourite(element){
 }
 
 goToFavouriteButton.addEventListener('click', ()=>{
-	let favouriteMoviesAkash = JSON.parse(localStorage.getItem("favouriteMoviesAkash"));
-	if(favouriteMoviesAkash == null || favouriteMoviesAkash.length < 1){
+	let favouriteMoviePriyanka = JSON.parse(localStorage.getItem("favouriteMoviePriyanka"));
+	if(favouriteMoviePriyanka == null || favouriteMoviePriyanka.length < 1){
 		showAlert("you have not added any movie to favourite");
 		return;
 	}
 
-	currentMovieStack = favouriteMoviesAkash;
+	currentMovieStack = favouriteMoviePriyanka;
 	renderList("remove");
 })
 
 function remove(element){
 	let id = element.dataset.id;
-	let favouriteMoviesAkash = JSON.parse(localStorage.getItem("favouriteMoviesAkash"));
+	let favouriteMoviePriyanka = JSON.parse(localStorage.getItem("favouriteMoviePriyanka"));
 	let newFavouriteMovies = [];
-	for(let i = 0; i<favouriteMoviesAkash.length; i++){
-		if(favouriteMoviesAkash[i].id == id){
+	for(let i = 0; i<favouriteMoviePriyanka.length; i++){
+		if(favouriteMoviePriyanka[i].id == id){
 			continue;
 		}
-		newFavouriteMovies.push(favouriteMoviesAkash[i]);
+		newFavouriteMovies.push(favouriteMoviePriyanka[i]);
 	}
 	
-	localStorage.setItem("favouriteMoviesAkash", JSON.stringify(newFavouriteMovies));
+	localStorage.setItem("favouriteMoviePriyanka", JSON.stringify(newFavouriteMovies));
 	currentMovieStack = newFavouriteMovies;
 	renderList("remove");
 }
